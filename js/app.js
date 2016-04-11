@@ -39,6 +39,7 @@ $( document ).ready(function() {
 	$("#restart").click(function(){
 		console.log("Restart clicked");
 		timestamp();
+		sncf();
 		if (counting==true) {
 			counting=false;
 			$("#DateCountdown").TimeCircles().stop();
@@ -65,4 +66,27 @@ function timestamp() {
 	}
 	var timestamp = year.concat("-", month, "-", day, " ", hour, ":", minute, ":", seconde);
 	console.log(timestamp);
+}
+
+function sncf() {
+/*	$.get("https://94492bd9-6d4c-4c2a-9287-4a4432165e4f@api.sncf.com/v1/coverage/sncf/physical_modes", function( data  ) {
+		  console.log(data);
+	} );
+*/
+	$.ajax({
+    	beforeSend: function (xhr) {
+	        xhr.setRequestHeader('Authorization', 'Basic ' + btoa('94492bd9-6d4c-4c2a-9287-4a4432165e4f'));
+			},
+        url: "https://api.sncf.com/v1/coverage/sncf/physical_modes",
+        type: "GET",
+	    //username: "94492bd9-6d4c-4c2a-9287-4a4432165e4f",
+		crossDomain:true,
+        success: function (response) {
+            //var resp = JSON.parse(response)
+            console.log(response);
+        },
+        error: function (xhr, status) {
+            console.log(status);
+        }
+    });
 }
