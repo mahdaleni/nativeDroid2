@@ -1,9 +1,14 @@
+/**
+ * Manage documentready event
+ *
+ */
 $( document ).ready(function() {
-	console.log( "ready!" );
-	var counting=true;
+	console.log( "Document ready !" );
+	app.initialize();
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
 
+	// Document stuff should go here
 	$("#DateCountdown").TimeCircles({
 		"animation": "smooth",
 		"bg_width": 1.2,
@@ -32,25 +37,54 @@ $( document ).ready(function() {
 			}
 		}
 	});
-
-
-
-
-	$("#restart").click(function(){
-		console.log("Restart clicked");
-		timestamp();
-		sncf();
-		if (counting==true) {
-			counting=false;
-			$("#DateCountdown").TimeCircles().stop();
-		}
-		else{
-			counting=true;
-			$("#DateCountdown").TimeCircles().start();
-		}
-	});
 });
 
+/**
+ * Manage deviceready event
+ *
+ */
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+	onDeviceReady: function() {
+		console.log( "Device ready !" );
+		console.log(navigator.notification);
+
+		var counting=true;
+		$("#restart").click(function(){
+			console.log("Restart clicked");
+			timestamp();
+			dialogAlert();
+			//playBeep();
+			//sncf();
+			if (counting==true) {
+				counting=false;
+				$("#DateCountdown").TimeCircles().stop();
+			}
+			else{
+				counting=true;
+				$("#DateCountdown").TimeCircles().start();
+			}
+		});
+	}
+};
+
+/**
+ * Function
+ *
+ */
 function timestamp() {
 	var d = new Date();
 	var year = d.getFullYear().toString();
@@ -69,10 +103,6 @@ function timestamp() {
 }
 
 function sncf() {
-/*	$.get("https://94492bd9-6d4c-4c2a-9287-4a4432165e4f@api.sncf.com/v1/coverage/sncf/physical_modes", function( data  ) {
-		  console.log(data);
-	} );
-*/
 	$.ajax({
     	beforeSend: function (xhr) {
 	        xhr.setRequestHeader('Authorization', 'Basic ' + btoa('94492bd9-6d4c-4c2a-9287-4a4432165e4f'));
@@ -90,3 +120,22 @@ function sncf() {
         }
     });
 }
+
+function dialogAlert() {
+   var message = "I am Alert Dialog!";
+   var title = "ALERT";
+   var buttonName = "Alert Button";
+
+   navigator.notification.alert(message, alertCallback, title, buttonName);
+
+   function alertCallback() {
+      console.log("Alert is Dismissed!");
+   }
+}
+
+function dialogBeep() {
+   var times = 2;
+   navigator.notification.beep(times);
+}
+
+
