@@ -39,14 +39,6 @@ $( document ).ready(function() {
 			}
 		}
 	});
-	$( "#Sstation" ).autocomplete({
-		source: function(request, response){
-			sncf = new Sncfapi();
-			sncf.findStation(request.term, response);
-		},
-		minLength:3,
-	});
-
 });
 
 /**
@@ -72,7 +64,17 @@ var app = {
 		console.log( "Device ready !" );
 		console.log(navigator.notification);
 
+		sncf = new Sncfapi();
 
+		// Autocomplete field
+		$( "#station_start" ).autocomplete({
+			source: function(request, response){
+				sncf.findStation(request.term, response);
+			},
+			minLength:3,
+		});
+
+		// Button click
 		var counting=true;
 		$("#restart").click(function(){
 			console.log("Restart clicked");
