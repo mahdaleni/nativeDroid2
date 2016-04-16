@@ -66,11 +66,11 @@ var app = {
 
 		$('#startstation').autocomplete(
 			{
-				minLenght: 0,
 				source: function(request, response){
 					sncf = new Sncfapi();
 					sncf.findStation(request.term, response);
 				},
+				minLenght: 3,
   		    	open: function() { $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" ); },
  		    	close: function() { $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" ); }
 			}
