@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; media-src *; font-src 'self' fonts.gstatic.com">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com lorempixel.com api.sncf.com 'unsafe-eval'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; media-src *; font-src 'self' fonts.gstatic.com">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -40,6 +40,10 @@
 				<h2>Measure time</h2>
 				<div id="DateCountdown" data-date="2016-04-11 00:00:00" style="width: 100%;"></div>
 				<a href="#" class="ui-btn clr-primary" id="restart">Restart</a>	
+				<label for="startstation">Start station:</label>
+                <input type="text" name="startstation" id="startstation" value="" data-clear-btn="true" placeholder="Enter the start station...">
+
+
 			</div>
 
 		</div>
@@ -50,10 +54,11 @@
 		<script src="js/fastclick.min.js"></script>
 		<script src="js/TimeCircles.js"></script>
 		<script src="js/app.js"></script>
+		<script src="js/sncfapi.js"></script>
+		<script src="js/URI.min.js"></script>
 		<script src="vendor/waves/waves.min.js"></script>
 		<script src="vendor/wow/wow.min.js"></script>
 		<script src="js/nativedroid2.js"></script>
 		<script src="nd2settings.js"></script>
-
 	</body>
 </html>

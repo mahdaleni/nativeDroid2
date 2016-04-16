@@ -1,3 +1,5 @@
+
+
 /**
  * Manage documentready event
  *
@@ -66,9 +68,16 @@ var app = {
 		$("#restart").click(function(){
 			console.log("Restart clicked");
 			timestamp();
-			dialogAlert();
+			//dialogAlert();
 			//playBeep();
-			//sncf();
+			sncf = new Sncfapi();
+			/*$('#startstation').autocomplete(
+				{
+					minLenght: 3,
+					source:
+				}
+			)*/
+			sncf.findStation("Voreppe", sncf.filter_places);
 			if (counting==true) {
 				counting=false;
 				$("#DateCountdown").TimeCircles().stop();
@@ -102,24 +111,6 @@ function timestamp() {
 	console.log(timestamp);
 }
 
-function sncf() {
-	$.ajax({
-    	beforeSend: function (xhr) {
-	        xhr.setRequestHeader('Authorization', 'Basic ' + btoa('94492bd9-6d4c-4c2a-9287-4a4432165e4f'));
-			},
-        url: "https://api.sncf.com/v1/coverage/sncf/physical_modes",
-        type: "GET",
-	    //username: "94492bd9-6d4c-4c2a-9287-4a4432165e4f",
-		crossDomain:true,
-        success: function (response) {
-            //var resp = JSON.parse(response)
-            console.log(response);
-        },
-        error: function (xhr, status) {
-            console.log(status);
-        }
-    });
-}
 
 function dialogAlert() {
    var message = "I am Alert Dialog!";
@@ -137,5 +128,4 @@ function dialogBeep() {
    var times = 2;
    navigator.notification.beep(times);
 }
-
 
