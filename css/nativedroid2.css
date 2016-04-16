@@ -1141,13 +1141,14 @@ html >body .ui-rangeslider .ui-rangeslider-sliders .ui-slider-track:first-child 
 .nd2-search-input:-ms-input-placeholder { color: rgba(255,255,255,0.6); }
 
 .ui-autocomplete {
-	display: block;
+/*	display: block;
 	position: fixed;
-	top: 64px !important;
+	top: 150px !important;
 	left: 0px !important;
 	right: 0px;
 	bottom: 0px;
-	background-color: #fafafa;
+*/
+	background-color: #cccccc;
 
 	list-style-type: none;
 	padding: 0px;

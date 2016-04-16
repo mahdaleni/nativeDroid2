@@ -41,13 +41,15 @@ function Sncfapi(){
 
 	this.filter_places = function(response, callback) {
 		var station = [];
-		console.log(response.places);
-		response.places.forEach(function(item){
-			//console.log(item);
-			if(item.embedded_type == "stop_area"){
-				station.push({label: item.name, value: item.id});
-			}
-		});
+		//console.log(response.places);
+		if (response.places.length > 0){
+			response.places.forEach(function(item){
+				//console.log(item);
+				//if(item.embedded_type == "stop_area"){
+					station.push({label: item.name, value: item.id});
+				//}
+			});
+		}
 		console.log(station);
 		callback(station);
 	}

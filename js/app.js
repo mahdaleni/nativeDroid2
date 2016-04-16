@@ -39,6 +39,14 @@ $( document ).ready(function() {
 			}
 		}
 	});
+	$( "#Sstation" ).autocomplete({
+		source: function(request, response){
+			sncf = new Sncfapi();
+			sncf.findStation(request.term, response);
+		},
+		minLength:3,
+	});
+
 });
 
 /**
@@ -63,19 +71,6 @@ var app = {
 	onDeviceReady: function() {
 		console.log( "Device ready !" );
 		console.log(navigator.notification);
-
-		$('#startstation').autocomplete(
-			{
-				source: function(request, response){
-					sncf = new Sncfapi();
-					sncf.findStation(request.term, response);
-				},
-				minLenght: 3,
-  		    	open: function() { $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" ); },
- 		    	close: function() { $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" ); }
-			}
-		);
-		//sncf.findStation("Voreppe", sncf.filter_places);
 
 
 		var counting=true;
