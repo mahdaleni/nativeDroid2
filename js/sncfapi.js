@@ -9,6 +9,9 @@ function Sncfapi(){
 	this.apikey = "94492bd9-6d4c-4c2a-9287-4a4432165e4f";
 	this.endpoint = new URI("https://api.sncf.com/v1/coverage/sncf");
 
+	this.station_start = "";
+	this.station_end = "";
+
 
 	this.ajax = function(url, ffilter, callback){
 		// Build the base64 token
