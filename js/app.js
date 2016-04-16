@@ -64,20 +64,26 @@ var app = {
 		console.log( "Device ready !" );
 		console.log(navigator.notification);
 
+		$('#startstation').autocomplete(
+			{
+				minLenght: 0,
+				source: function(request, response){
+					sncf = new Sncfapi();
+					sncf.findStation(request.term, response);
+				},
+  		    	open: function() { $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" ); },
+ 		    	close: function() { $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" ); }
+			}
+		);
+		//sncf.findStation("Voreppe", sncf.filter_places);
+
+
 		var counting=true;
 		$("#restart").click(function(){
 			console.log("Restart clicked");
 			timestamp();
 			//dialogAlert();
 			//playBeep();
-			sncf = new Sncfapi();
-			/*$('#startstation').autocomplete(
-				{
-					minLenght: 3,
-					source:
-				}
-			)*/
-			sncf.findStation("Voreppe", sncf.filter_places);
 			if (counting==true) {
 				counting=false;
 				$("#DateCountdown").TimeCircles().stop();
