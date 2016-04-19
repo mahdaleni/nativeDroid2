@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% block css %}
+		{{ super() }}
+		<link rel="stylesheet" href="css/TimeCircles.css" />
+{%- endblock -%}
+
+{% block content %}
+				<h2>Device test</h2>
+				<a href="#" class="ui-btn ui-btn-raised clr-primary" id="beep">beep</a>
+				<p></p>
+				<a href="#" class="ui-btn ui-btn-raised clr-primary" id="alert">alert</a>
+				<p></p>
+				<a href="#" class="ui-btn ui-btn-raised clr-primary" id="create">create</a>
+				<p></p>
+				<a href="#" class="ui-btn ui-btn-raised clr-primary" id="write">write</a>
+				<p></p>
+				<a href="#" class="ui-btn ui-btn-raised clr-primary" id="read">read</a>
+				<p></p>
+				<a href="#" class="ui-btn ui-btn-raised clr-primary" id="delete">delete</a>
+				<p></p>
+				<label id="blabla">Bla bla</label>
+				
+	            <textarea cols="40" rows="8" name="textarea" id="textarea" placeholder="This is a textarea"></textarea>
+{% endblock %}
+
+{% block javascript %}
+		{{ super() }}
+		<script src="js/TimeCircles.js"></script>
+		<script src="js/URI.min.js"></script>
+		<script src="js/app2.js"></script>
+		<script src="js/sncfapi.js"></script>
+		<script src="js/device.js"></script>
+{%- endblock %}

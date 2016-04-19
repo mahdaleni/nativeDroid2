@@ -1,6 +1,5 @@
-/* Helper for sncf api
- *
- *
+/**
+ * Helper for sncf api
  *
  */
 

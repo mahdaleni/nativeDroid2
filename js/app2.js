@@ -79,6 +79,43 @@ var app = {
 			$("#save").attr("class", "ui-btn ui-btn-raised ui-disabled");
 			counting = false;
 		});
+
+		// Button beep clicked
+		$("#beep").click(function(){
+			device = new Device();
+			device.beep(1);
+		});
+
+		// Button alert clicked
+		$("#alert").click(function(){
+			device = new Device();
+			device.alert("Alert msg", "ALERT !!!", "Close");
+		});
+
+		// Button create clicked
+		$("#create").click(function(){
+			device = new Device();
+			device.createfile();
+		});
+
+		// Button write clicked
+		$("#write").click(function(){
+			device = new Device();
+			device.writefile();
+		});
+
+		// Button read clicked
+		$("#read").click(function(){
+			device = new Device();
+			device.readfile();
+			$("#blabla").html("Coucou");
+		});
+
+		// Button delete clicked
+		$("#delete").click(function(){
+			device = new Device();
+			device.removefile();
+		});
 	}
 };
 
