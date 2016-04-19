@@ -9,36 +9,9 @@ $( document ).ready(function() {
 	app.initialize();
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
-
+	$("#DateCountdown").attr("data-date", timestamp());
+	inittc();
 	// Document stuff should go here
-	$("#DateCountdown").TimeCircles({
-		"animation": "smooth",
-		"bg_width": 1.2,
-		"fg_width": 0.1,
-		"circle_bg_color": "#60686F",
-		"time": {
-			"Days": {
-				"text": "Days",
-				"color": "#FFCC66",
-				"show": false
-			},
-			"Hours": {
-				"text": "Hours",
-				"color": "#99CCFF",
-				"show": true
-			},
-			"Minutes": {
-				"text": "Minutes",
-				"color": "#BBFFBB",
-				"show": true
-			},
-			"Seconds": {
-				"text": "Seconds",
-				"color": "#FF9999",
-				"show": true
-			}
-		}
-	});
 });
 
 /**
@@ -77,6 +50,7 @@ var app = {
         		$("#station_start").val(ui.item.label);
         		$("#station_start").val(ui.item.label);
 				hideKeyboard();
+				sncf.station_start = ui.item.value;
     		},
     		focus: function(event, ui) {
         		event.preventDefault();
@@ -85,19 +59,22 @@ var app = {
 		});
 
 		// Button click
-		var counting=true;
+		var counting = true;
+		var duration;
 		$("#restart").click(function(){
 			console.log("Restart clicked");
-			timestamp();
-			//dialogAlert();
-			//playBeep();
-			if (counting==true) {
-				counting=false;
-				$("#DateCountdown").TimeCircles().stop();
+			if(counting == false){
+				$("#DateCountdown").attr("data-date", timestamp());
+				$("#DateCountdown").data("date", timestamp());
+				$("#DateCountdown").TimeCircles().start();
+				counting = true;
 			}
 			else{
-				counting=true;
-				$("#DateCountdown").TimeCircles().start();
+				$("#DateCountdown").TimeCircles().stop();
+				duration = $("#DateCountdown").TimeCircles().getTime();
+				duration = Math.abs(duration * 1000);
+				console.log("Duration: " + duration);
+				counting = false;
 			}
 		});
 	}
@@ -107,6 +84,37 @@ var app = {
  * Function
  *
  */
+function inittc(){
+	$("#DateCountdown").TimeCircles({
+		"start":true,
+		"animation": "smooth",
+		"bg_width": 1.2,
+		"fg_width": 0.1,
+		"circle_bg_color": "#60686F",
+		"time": {
+			"Days": {
+				"text": "Days",
+				"color": "#FFCC66",
+				"show": false
+			},
+			"Hours": {
+				"text": "Hours",
+				"color": "#99CCFF",
+				"show": true
+			},
+			"Minutes": {
+				"text": "Minutes",
+				"color": "#BBFFBB",
+				"show": true
+			},
+			"Seconds": {
+				"text": "Seconds",
+				"color": "#FF9999",
+				"show": true
+			}
+		}
+	});
+}
 function timestamp() {
 	var d = new Date();
 	var year = d.getFullYear().toString();
@@ -115,6 +123,10 @@ function timestamp() {
 	var day = d.getDate().toString();
 	var hour = d.getHours().toString();
 	var minute = d.getMinutes().toString();
+	if (minute < 10) {
+		var zero = "0";
+		minute = zero.concat(minute.toString());
+	}
 	var seconde = d.getSeconds();
 	if (seconde < 10) {
 		var zero = "0";
@@ -122,6 +134,7 @@ function timestamp() {
 	}
 	var timestamp = year.concat("-", month, "-", day, " ", hour, ":", minute, ":", seconde);
 	console.log(timestamp);
+	return timestamp;
 }
 
 
