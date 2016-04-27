@@ -2,7 +2,11 @@
  * Device management
  *
  */
-function Device(){
+function Device(filename){
+
+	this.filetype = window.PERSISTENT;
+	this.filename = filename;
+	this.quota = 1024;
 
 	this.alert = function(message, title, button_name) {
 
@@ -20,10 +24,8 @@ function Device(){
 
 
 	this.createfile = function () {
-		var type = window.TEMPORARY;
-		var size = 5*1024*1024;
 
-		window.requestFileSystem(type, size, successCallback, errorCallback)
+		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
 
 		function successCallback(fs) {
 			fs.root.getFile('log.txt', {create: true, exclusive: true}, function(fileEntry) {
@@ -39,10 +41,8 @@ function Device(){
 
 
 	this.writefile = function () {
-		var type = window.TEMPORARY;
-		var size = 5*1024*1024;
 
-		window.requestFileSystem(type, size, successCallback, errorCallback)
+		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
 
 		function successCallback(fs) {
 
@@ -73,10 +73,8 @@ function Device(){
 
 
 	this.readfile = function () {
-		var type = window.TEMPORARY;
-		var size = 5*1024*1024;
 
-		window.requestFileSystem(type, size, successCallback, errorCallback)
+		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
 
 		function successCallback(fs) {
 
@@ -105,10 +103,8 @@ function Device(){
 
 
 	this.removefile = function () {
-		var type = window.TEMPORARY;
-		var size = 5*1024*1024;
 
-		window.requestFileSystem(type, size, successCallback, errorCallback)
+		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
 
 		function successCallback(fs) {
 			fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
