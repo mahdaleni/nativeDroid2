@@ -100,7 +100,7 @@ var app = {
 		// Button write clicked
 		$("#write").click(function(){
 			device = new Device("log.txt");
-			device.writefile();
+			device.writefile("Blablabla !!!");
 		});
 
 		// Button read clicked

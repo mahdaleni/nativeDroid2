@@ -41,7 +41,7 @@ function Device(filename){
 	}
 
 
-	this.writefile = function () {
+	this.writefile = function (data, type = 'text/plain') {
 
 		filename = this.filename;  // Get filename in the local scope
 		window.requestFileSystem(this.filetype, this.quota, function(fs){successCallback(fs, filename)}, errorCallback)
@@ -59,7 +59,7 @@ function Device(filename){
 						console.log('Write failed: ' + e.toString());
 					};
 
-					var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
+					var blob = new Blob([data], {type: type});
 					fileWriter.write(blob);
 				}, errorCallback);
 
@@ -87,6 +87,7 @@ function Device(filename){
 					var reader = new FileReader();
 
 					reader.onloadend = function(e) {
+						console.log(this);
 						var txtArea = document.getElementById('textarea');
 						txtArea.value = this.result;
 					};
