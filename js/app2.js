@@ -34,7 +34,6 @@ var app = {
     //
 	onDeviceReady: function() {
 		console.log( "Device ready !" );
-		console.log(navigator.notification);
 
 		sncf = new Sncfapi();
 
@@ -82,38 +81,38 @@ var app = {
 
 		// Button beep clicked
 		$("#beep").click(function(){
-			device = new Device();
+			device = new Device("log.txt");
 			device.beep(1);
 		});
 
 		// Button alert clicked
 		$("#alert").click(function(){
-			device = new Device();
+			device = new Device("log.txt");
 			device.alert("Alert msg", "ALERT !!!", "Close");
 		});
 
 		// Button create clicked
 		$("#create").click(function(){
-			device = new Device();
+			device = new Device("log.txt");
 			device.createfile();
 		});
 
 		// Button write clicked
 		$("#write").click(function(){
-			device = new Device();
+			device = new Device("log.txt");
 			device.writefile();
 		});
 
 		// Button read clicked
 		$("#read").click(function(){
-			device = new Device();
+			device = new Device("log.txt");
 			device.readfile();
 			$("#blabla").html("Coucou");
 		});
 
 		// Button delete clicked
 		$("#delete").click(function(){
-			device = new Device();
+			device = new Device("log.txt");
 			device.removefile();
 		});
 	}

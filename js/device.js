@@ -25,16 +25,17 @@ function Device(filename){
 
 	this.createfile = function () {
 
-		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
+		filename = this.filename;  // Get filename in the local scope
+		window.requestFileSystem(this.filetype, this.quota, function(fs){successCallback(fs, filename)}, errorCallback)
 
-		function successCallback(fs) {
-			fs.root.getFile('log.txt', {create: true, exclusive: true}, function(fileEntry) {
-				alert('File creation successfull!')
+		function successCallback(fs, filename) {
+			fs.root.getFile(filename, {create: true, exclusive: true}, function(fileEntry) {
+				console.log('File creation successfull!');
 			}, errorCallback);
 		}
 
 		function errorCallback(error) {
-			alert("ERROR: " + error.code)
+			console.error("ERROR: " + error.message);
 		}
 
 	}
@@ -42,19 +43,20 @@ function Device(filename){
 
 	this.writefile = function () {
 
-		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
+		filename = this.filename;  // Get filename in the local scope
+		window.requestFileSystem(this.filetype, this.quota, function(fs){successCallback(fs, filename)}, errorCallback)
 
-		function successCallback(fs) {
+		function successCallback(fs, filename) {
 
-			fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+			fs.root.getFile(filename, {create: true}, function(fileEntry) {
 
 				fileEntry.createWriter(function(fileWriter) {
 					fileWriter.onwriteend = function(e) {
-						alert('Write completed.');
+						console.log('Write completed.');
 					};
 
 					fileWriter.onerror = function(e) {
-						alert('Write failed: ' + e.toString());
+						console.log('Write failed: ' + e.toString());
 					};
 
 					var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
@@ -66,7 +68,7 @@ function Device(filename){
 		}
 
 		function errorCallback(error) {
-			alert("ERROR: " + error.code)
+			console.error("ERROR: " + error.message);
 		}
 
 	}
@@ -74,11 +76,12 @@ function Device(filename){
 
 	this.readfile = function () {
 
-		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
+		filename = this.filename;  // Get filename in the local scope
+		window.requestFileSystem(this.filetype, this.quota, function(fs){successCallback(fs, filename)}, errorCallback)
 
-		function successCallback(fs) {
+		function successCallback(fs, filename) {
 
-			fs.root.getFile('log.txt', {}, function(fileEntry) {
+			fs.root.getFile(filename, {}, function(fileEntry) {
 
 				fileEntry.file(function(file) {
 					var reader = new FileReader();
@@ -96,7 +99,7 @@ function Device(filename){
 		}
 
 		function errorCallback(error) {
-			alert("ERROR: " + error.code)
+			console.error("ERROR: " + error.message);
 		}
 
 	}
@@ -104,20 +107,21 @@ function Device(filename){
 
 	this.removefile = function () {
 
-		window.requestFileSystem(this.filetype, this.quota, successCallback, errorCallback)
+		filename = this.filename;  // Get filename in the local scope
+		window.requestFileSystem(this.filetype, this.quota, function(fs){successCallback(fs, filename)}, errorCallback)
 
-		function successCallback(fs) {
-			fs.root.getFile('log.txt', {create: false}, function(fileEntry) {
+		function successCallback(fs, filename) {
+			fs.root.getFile(filename, {create: false}, function(fileEntry) {
 
 				fileEntry.remove(function() {
-					alert('File removed.');
+					console.log('File removed.');
 				}, errorCallback);
 
 			}, errorCallback);
 		}
 
 		function errorCallback(error) {
-			alert("ERROR: " + error.code)
+			console.error("ERROR: " + error.message);
 		}
 
 	}
